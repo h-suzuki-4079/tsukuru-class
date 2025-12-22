@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { WeekNavigation } from "@/components/week-navigation"
 import { MissionCard } from "@/components/mission-card"
@@ -19,7 +19,7 @@ import { AiAdvisor } from "@/components/ai-advisor"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { checkOnboardingStatus } from "@/app/actions/onboarding"
 
-export default function DashboardPage() {
+function DashboardContent() {
   const searchParams = useSearchParams()
   const [isAdvisorOpen, setIsAdvisorOpen] = useState(true)
   const [currentWeek, setCurrentWeek] = useState(0)
@@ -129,6 +129,18 @@ export default function DashboardPage() {
       {/* Right Sidebar - AI Advisor */}
       {!isDeepFocusMode && <AiAdvisor isOpen={isAdvisorOpen} onToggle={() => setIsAdvisorOpen(!isAdvisorOpen)} />}
     </div>
+  )
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center bg-background">
+        <p className="text-muted-foreground">読み込み中...</p>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   )
 }
 
