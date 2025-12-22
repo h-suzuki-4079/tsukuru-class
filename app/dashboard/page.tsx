@@ -132,6 +132,8 @@ function DashboardContent() {
   );
 }
 
+// Page component: Suspense boundary wrapper only
+// All hooks (useSearchParams, useState, useEffect) are in DashboardContent
 export default function Page() {
   return (
     <Suspense fallback={<div className="p-10 text-center text-slate-400">Loading...</div>}>
