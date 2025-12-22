@@ -1,65 +1,65 @@
-"use client"
+'use client';
 
-import { Suspense, useState, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
-import { WeekNavigation } from "@/components/week-navigation"
-import { MissionCard } from "@/components/mission-card"
-import { DialogueLog } from "@/components/dialogue-log"
-import { Week1Page } from "@/components/week1-page"
-import { SensibilityLogComponent } from "@/components/sensibility-log"
-import { ThoughtTranslator } from "@/components/thought-translator"
-import { QuestionGenerator } from "@/components/question-generator"
-import { VirtualInterview } from "@/components/virtual-interview"
-import { ActionRoadmap } from "@/components/action-roadmap"
-import { GraduationCertificate } from "@/components/graduation-certificate"
-import { OnboardingForm } from "@/components/onboarding-form"
-import { DiagnosisReport } from "@/components/diagnosis-report"
-import { OutputArea } from "@/components/output-area"
-import { AiAdvisor } from "@/components/ai-advisor"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { checkOnboardingStatus } from "@/app/actions/onboarding"
+import { Suspense, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { WeekNavigation } from '@/components/week-navigation';
+import { MissionCard } from '@/components/mission-card';
+import { DialogueLog } from '@/components/dialogue-log';
+import { Week1Page } from '@/components/week1-page';
+import { SensibilityLogComponent } from '@/components/sensibility-log';
+import { ThoughtTranslator } from '@/components/thought-translator';
+import { QuestionGenerator } from '@/components/question-generator';
+import { VirtualInterview } from '@/components/virtual-interview';
+import { ActionRoadmap } from '@/components/action-roadmap';
+import { GraduationCertificate } from '@/components/graduation-certificate';
+import { OnboardingForm } from '@/components/onboarding-form';
+import { DiagnosisReport } from '@/components/diagnosis-report';
+import { OutputArea } from '@/components/output-area';
+import { AiAdvisor } from '@/components/ai-advisor';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { checkOnboardingStatus } from '@/app/actions/onboarding';
 
 function DashboardContent() {
-  const searchParams = useSearchParams()
-  const [isAdvisorOpen, setIsAdvisorOpen] = useState(true)
-  const [currentWeek, setCurrentWeek] = useState(0)
-  const [hasOnboarding, setHasOnboarding] = useState<boolean | null>(null)
-  const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams();
+  const [isAdvisorOpen, setIsAdvisorOpen] = useState(true);
+  const [currentWeek, setCurrentWeek] = useState(0);
+  const [hasOnboarding, setHasOnboarding] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const isDeepFocusMode = currentWeek === 4
-  const isWeek0 = currentWeek === 0
-  const isWeek1 = currentWeek === 1
-  const isWeek2 = currentWeek === 2
-  const isWeek3 = currentWeek === 3
-  const isWeek4 = currentWeek === 4
-  const isWeek5 = currentWeek === 5
-  const isWeek6 = currentWeek === 6
-  const isWeek7 = currentWeek === 7
+  const isDeepFocusMode = currentWeek === 4;
+  const isWeek0 = currentWeek === 0;
+  const isWeek1 = currentWeek === 1;
+  const isWeek2 = currentWeek === 2;
+  const isWeek3 = currentWeek === 3;
+  const isWeek4 = currentWeek === 4;
+  const isWeek5 = currentWeek === 5;
+  const isWeek6 = currentWeek === 6;
+  const isWeek7 = currentWeek === 7;
 
   // URLパラメータからWeekを読み取る
   useEffect(() => {
-    const weekParam = searchParams.get("week")
+    const weekParam = searchParams.get('week');
     if (weekParam) {
-      const week = parseInt(weekParam, 10)
+      const week = parseInt(weekParam, 10);
       if (!isNaN(week) && week >= 0 && week <= 7) {
-        setCurrentWeek(week)
+        setCurrentWeek(week);
       }
     }
-  }, [searchParams])
+  }, [searchParams]);
 
   useEffect(() => {
     const checkStatus = async () => {
       if (isWeek0) {
-        const result = await checkOnboardingStatus()
-        setHasOnboarding(result.hasOnboarding || false)
-        setLoading(false)
+        const result = await checkOnboardingStatus();
+        setHasOnboarding(result.hasOnboarding || false);
+        setLoading(false);
       } else {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    checkStatus()
-  }, [isWeek0])
+    checkStatus();
+  }, [isWeek0]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
@@ -73,10 +73,10 @@ function DashboardContent() {
           <div className="flex items-center justify-between px-6 py-4">
             <div>
               <h1 className="text-xl font-semibold text-foreground font-sans">
-                {isDeepFocusMode ? "Deep Focus Mode" : "学習ダッシュボード"}
+                {isDeepFocusMode ? 'Deep Focus Mode' : '学習ダッシュボード'}
               </h1>
               <p className="text-sm text-muted-foreground font-sans">
-                {isDeepFocusMode ? "集中して思考を深める時間" : "AIと共に思考を変容させる"}
+                {isDeepFocusMode ? '集中して思考を深める時間' : 'AIと共に思考を変容させる'}
               </p>
             </div>
             <ThemeToggle />
@@ -129,14 +129,13 @@ function DashboardContent() {
       {/* Right Sidebar - AI Advisor */}
       {!isDeepFocusMode && <AiAdvisor isOpen={isAdvisorOpen} onToggle={() => setIsAdvisorOpen(!isAdvisorOpen)} />}
     </div>
-  )
+  );
 }
 
 export default function Page() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-slate-400">Loading...</div>}>
+    <Suspense fallback={<div className="p-10 text-center text-slate-400">Loading...</div>}>
       <DashboardContent />
     </Suspense>
-  )
+  );
 }
-
