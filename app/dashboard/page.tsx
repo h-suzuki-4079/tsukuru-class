@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
+import { Suspense, useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { WeekNavigation } from "@/components/week-navigation"
 import { MissionCard } from "@/components/mission-card"
@@ -132,13 +132,9 @@ function DashboardContent() {
   )
 }
 
-export default function DashboardPage() {
+export default function Page() {
   return (
-    <Suspense fallback={
-      <div className="flex h-screen items-center justify-center bg-background">
-        <p className="text-muted-foreground">読み込み中...</p>
-      </div>
-    }>
+    <Suspense fallback={<div className="p-8 text-center text-slate-400">Loading...</div>}>
       <DashboardContent />
     </Suspense>
   )
