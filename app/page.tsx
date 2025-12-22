@@ -5,7 +5,7 @@ import { Sparkles } from "lucide-react"
 import { EntryForm } from "@/components/entry-form"
 import Image from "next/image"
 import { motion } from "framer-motion"
-
+export const dynamic = 'force-dynamic';
 export default function LandingPage() {
   const formRef = useRef<HTMLDivElement>(null)
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([])
