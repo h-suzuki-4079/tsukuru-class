@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { WeekNavigation } from '@/components/week-navigation';
 import { MissionCard } from '@/components/mission-card';
@@ -19,7 +19,7 @@ import { AiAdvisor } from '@/components/ai-advisor';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { checkOnboardingStatus } from '@/app/actions/onboarding';
 
-export default function DashboardContentClient() {
+function DashboardInner() {
   const searchParams = useSearchParams();
   const [isAdvisorOpen, setIsAdvisorOpen] = useState(true);
   const [currentWeek, setCurrentWeek] = useState(0);
@@ -67,7 +67,6 @@ export default function DashboardContentClient() {
         <WeekNavigation currentWeek={currentWeek} onWeekChange={setCurrentWeek} />
       </aside>
 
-      {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden">
         <header className="border-b border-border bg-card/50 backdrop-blur-sm">
           <div className="flex items-center justify-between px-6 py-4">
@@ -84,7 +83,6 @@ export default function DashboardContentClient() {
         </header>
 
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* Week 0: オンボーディングフォーム or 診断レポート */}
           {isWeek0 ? (
             loading ? (
               <div className="flex items-center justify-center min-h-[400px]">
@@ -97,10 +95,8 @@ export default function DashboardContentClient() {
             )
           ) : (
             <>
-              {/* Mission Card */}
               <MissionCard currentWeek={currentWeek} isDeepFocusMode={isDeepFocusMode} />
 
-              {/* Week 1: 拡張案ジェネレーター / Week 2: 内省ログ / Week 3: 思考翻訳 / Week 4: 問いの設計 / Week 5: バーチャルインタビュー / Week 6: アクションプラン / Week 7: 修了証 / その他の週: AI Dialogue Log */}
               {isWeek1 ? (
                 <Week1Page isDeepFocusMode={isDeepFocusMode} />
               ) : isWeek2 ? (
@@ -119,16 +115,26 @@ export default function DashboardContentClient() {
                 <DialogueLog isDeepFocusMode={isDeepFocusMode} />
               )}
 
-              {/* Output Area */}
               <OutputArea isDeepFocusMode={isDeepFocusMode} />
             </>
           )}
         </div>
       </main>
 
-      {/* Right Sidebar - AI Advisor */}
-      {!isDeepFocusMode && <AiAdvisor isOpen={isAdvisorOpen} onToggle={() => setIsAdvisorOpen(!isAdvisorOpen)} />}
+      {!isDeepFocusMode && (
+        <AiAdvisor
+          isOpen={isAdvisorOpen}
+          onToggle={() => setIsAdvisorOpen(!isAdvisorOpen)}
+        />
+      )}
     </div>
   );
 }
 
+export default function DashboardContentClient() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center text-slate-400">Loading...</div>}>
+      <DashboardInner />
+    </Suspense>
+  );
+}
