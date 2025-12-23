@@ -37,3 +37,4 @@ CREATE POLICY "Allow anonymous users to insert entries"
 
 
 
+

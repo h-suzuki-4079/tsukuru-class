@@ -152,3 +152,4 @@ export function IdeaGenerator({ isDeepFocusMode }: IdeaGeneratorProps) {
 
 
 
+
