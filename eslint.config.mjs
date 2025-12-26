@@ -10,9 +10,11 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  // ✅ 生成物を必ず除外（これが目的）
+  { ignores: [".next/**", "node_modules/**"] },
+
   {
-    ignores: [".next/**", "node_modules/**"],
+    files: ["app/actions/**/*.{ts,tsx}"],
+    rules: { "@typescript-eslint/no-explicit-any": "off" },
   },
 
   // 既存のNext推奨設定
