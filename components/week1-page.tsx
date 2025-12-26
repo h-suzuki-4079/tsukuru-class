@@ -8,7 +8,7 @@ interface Week1PageProps {
   isDeepFocusMode?: boolean;
 }
 
-export function Week1Page({ isDeepFocusMode }: Week1PageProps) {
+export function Week1Page({}: Week1PageProps) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);

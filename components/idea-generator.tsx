@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Sparkles, Loader2, Zap } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
@@ -149,6 +148,7 @@ export function IdeaGenerator({ isDeepFocusMode }: IdeaGeneratorProps) {
     </Card>
   )
 }
+
 
 
 

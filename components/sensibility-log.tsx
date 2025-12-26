@@ -29,7 +29,7 @@ export function SensibilityLogComponent({ isDeepFocusMode }: SensibilityLogProps
   const [loading, setLoading] = useState(true)
   const [posting, setPosting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
 
   // ログを取得
   const fetchLogs = async () => {

@@ -22,7 +22,7 @@ export function PhaseNavigation() {
 
       {/* Phase List */}
       <nav className="flex-1 p-4 space-y-2">
-        {phases.map((phase, index) => (
+        {phases.map((phase) => (
           <button
             key={phase.id}
             className={cn(

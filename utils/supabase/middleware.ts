@@ -21,7 +21,7 @@ export async function updateSession(request: NextRequest) {
         setAll(cookiesToSet) {
           // 2. 重要: Request と Response の両方に Cookie をセットする
           // これがないと、Server Component 側で最新のセッションが即座に反映されません
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           )
           
