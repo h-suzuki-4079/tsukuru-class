@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prebuild": "node -p \"require(\\\"eslint/package.json\\\").version\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
