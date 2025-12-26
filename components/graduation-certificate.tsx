@@ -11,7 +11,7 @@ interface GraduationCertificateProps {
   isDeepFocusMode: boolean
 }
 
-export function GraduationCertificate({ isDeepFocusMode }: GraduationCertificateProps) {
+export function GraduationCertificate({}: GraduationCertificateProps) {
   const [data, setData] = useState<GraduationData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
