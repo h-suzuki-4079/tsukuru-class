@@ -28,10 +28,16 @@ export default function LoginPage() {
         const { error: signUpError } = await supabase.auth.signUp({
           email,
           password,
+          options: {
+            // メール認証リンクを踏んだ後に戻す先（本番なら https://tsukuru-class-h18j.vercel.app/login）
+            emailRedirectTo: `${location.origin}/login`,
+          },
         })
         if (signUpError) throw signUpError
-        // サインアップ成功後、ログイン状態を確認してダッシュボードへ
-        router.push("/dashboard")
+
+        // ※メール認証が必要な設定の場合、ここで即 /dashboard に飛ばすと未認証で弾かれることがあるため、
+        // まずは /login に留めて「メールを確認してください」導線にするのが安全です。
+        router.push("/login")
         router.refresh()
       } else {
         const { error: signInError } = await supabase.auth.signInWithPassword({
@@ -157,8 +163,3 @@ export default function LoginPage() {
     </div>
   )
 }
-
-
-
-
-
