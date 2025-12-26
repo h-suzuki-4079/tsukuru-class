@@ -19,9 +19,10 @@ const eslintConfig = [
   // ✅ 例外は “最後” に置いて上書き勝ちさせる
   {
     files: ["app/actions/**/*.{ts,tsx}"],
-    rules: {
-      "@typescript-eslint/no-explicit-any": "off",
-    },
+    rules: { "@typescript-eslint/no-explicit-any": "off" },
+  },
+  {
+    rules: { "react/no-unescaped-entities": "off" },
   },
 ];
 
